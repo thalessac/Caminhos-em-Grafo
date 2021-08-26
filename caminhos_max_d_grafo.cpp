@@ -1,5 +1,5 @@
 //--------------------------------------------------------------
-// NOME : Thales Simão do Amaral Camargo
+// CAMINHOS EM GRAFOS
 //--------------------------------------------------------------
 
 #include <stdio.h>
@@ -8,10 +8,6 @@
 #include <malloc.h>
 #include <string.h>
 
-// ######### ESCREVA O NROUSP AQUI
-int nroUSP() {
-    return 9017082;
-}
 
 //-------------------------------------------
 
@@ -29,10 +25,10 @@ typedef struct {
 
 
 //---------------------------------------------------------
-// FUNÇÕES AUXILIARES PARA FUNÇÃO PRINCIPAL
+// FUNÃ‡Ã•ES AUXILIARES PARA FUNÃ‡ÃƒO PRINCIPAL
 //---------------------------------------------------------
 
-//Lista ligada para armazenar a solução
+//Lista ligada para armazenar a soluÃ§Ã£o
 
 typedef struct {
     NO* inicio;
@@ -101,20 +97,20 @@ void exibirlista(NO* inicio){
 }
 
 //---------------------------------------------------------
-// FUNÇÃO PRINCIPAL
+// FUNÃ‡ÃƒO PRINCIPAL
 //---------------------------------------------------------
 void busca_prof(VERTICE* g, int x, int y, int d, LISTA* aux, LISTA* solution){
     /*
-    Função que recebe um grafo, o tamanho do grafo, a posição inicial, posição final e distância máxima d, lista aux e lista solution e cria uma
+    FunÃ§Ã£o que recebe um grafo, o tamanho do grafo, a posiÃ§Ã£o inicial, posiÃ§Ã£o final e distÃ¢ncia mÃ¡xima d, lista aux e lista solution e cria uma
     lista ligada com todos os caminhos simples existentes entre x e y.
     LISTA* aux ---> armazena um caminho simples encontrado
     LISTA* solution ---> armazena todos os caminhos simples existentes entre x e y.
     */
 
-    //Adiciono a posição atual na lista aux
+    //Adiciono a posiÃ§Ã£o atual na lista aux
     add_node(aux, x);
 
-    //Verifico se o critério de parada foi atindigo
+    //Verifico se o critÃ©rio de parada foi atindigo
     if (x==y && aux->tam - 1 <= d){
         NO* reg_aux = aux->inicio;
         for (int i = 0; i<aux->tam; i++){
@@ -123,35 +119,35 @@ void busca_prof(VERTICE* g, int x, int y, int d, LISTA* aux, LISTA* solution){
         }
     }
 
-    //Marco a posição atual como visitada
+    //Marco a posiÃ§Ã£o atual como visitada
     g[x].flag = 1;
 
-    //Uso chamadas recursivas para repetir a busca na próxima adjacência ainda não visitada
+    //Uso chamadas recursivas para repetir a busca na prÃ³xima adjacÃªncia ainda nÃ£o visitada
     NO* ad = g[x].inicio;
     while(ad){
-        if(g[ad->v].flag == 0){ //Se o vértice não foi examinado
+        if(g[ad->v].flag == 0){ //Se o vÃ©rtice nÃ£o foi examinado
             busca_prof(g, ad->v, y, d, aux, solution);
         }
         ad = ad->prox;
     }
 
     //Esgotou o caminho, fazer backtracking
-    //Desmarcar posição como visitada
+    //Desmarcar posiÃ§Ã£o como visitada
     g[x].flag = 0;
-    //Remover nó da lista de caminho auxiliar
+    //Remover nÃ³ da lista de caminho auxiliar
     remove_node(aux);
 }
 
 NO* caminhos_max_d(VERTICE* g, int n, int x, int y, int d){
     /*
-    Função que recebe um grafo, o tamanho do grafo, a posição inicial, posição final e distância máxima d e retorna uma
+    FunÃ§Ã£o que recebe um grafo, o tamanho do grafo, a posiÃ§Ã£o inicial, posiÃ§Ã£o final e distÃ¢ncia mÃ¡xima d e retorna uma
     lista ligada com todos os caminhos simples existentes entre x e y.
-    Essa função chama a função de busca em profundidade e apresenta os resultados e assinatura conforme especificações do EP.
+    Essa funÃ§Ã£o chama a funÃ§Ã£o de busca em profundidade e apresenta os resultados e assinatura conforme especificaÃ§Ãµes do EP.
     */
-    //Validação dos inputs
+    //ValidaÃ§Ã£o dos inputs
     if (x>n || x<1 || y>n || y<1) return NULL;
 
-    //Criação das listas aux e solution para armazenar os resultados parcial e final respectivamente
+    //CriaÃ§Ã£o das listas aux e solution para armazenar os resultados parcial e final respectivamente
     LISTA* aux = (LISTA*) malloc(sizeof(LISTA));
     inicializarLista(aux);
 
@@ -164,16 +160,16 @@ NO* caminhos_max_d(VERTICE* g, int n, int x, int y, int d){
     //Verifica se pelo menos um caminho foi encontrado
     if (solution->tam == 0) return NULL;
 
-    //Retorna a lista ligada solução do EP
+    //Retorna a lista ligada soluÃ§Ã£o do EP
     return solution->inicio;
 }
 
 
 //---------------------------------------------------------
-// FUNÇÕES PARA CRIAR TESTES
+// FUNÃ‡Ã•ES PARA CRIAR TESTES
 //---------------------------------------------------------
 
-/*Criar vértices do grafo*/
+/*Criar vÃ©rtices do grafo*/
 VERTICE *criaGrafo(int N){
     VERTICE* g = (VERTICE*) malloc(sizeof(VERTICE)*(N+1));
     int i;
@@ -213,18 +209,12 @@ void imprimirGrafo(VERTICE *g, int N) {
     printf("\n");
 }
 
-//---------------------------------------------------------
-// use main() para fazer chamadas de teste ao seu programa
-// mas nao entregue o codido de main() nem inclua nada
-// abaixo deste ponto
-//---------------------------------------------------------
+
 int main()
 {
-	if (nroUSP()==0) printf("\n\nNro USP nao informado!!!\n\n");
-
-	// crie um grafo de teste aqui
-	// chame a funcao caminhos_max_d implementada
-	// verifique se a lista retornada está correta
+	// criar um grafo de teste aqui
+	// chamar a funcao caminhos_max_d implementada
+	// verificar se a lista retornada estÃ¡ correta
 
 	int N = 17;
 
